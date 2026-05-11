@@ -14,6 +14,8 @@ app.use(express.json());
 
 // Routes
 const authRoutes = require('./routes/auth');
+const sessionRoutes = require('./routes/sessions');
+const questionRoutes = require('./routes/questions');
 
 // Test route
 app.get('/api/health', (req, res) => {
@@ -21,6 +23,8 @@ app.get('/api/health', (req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/sessions', sessionRoutes);
+app.use('/api/questions', questionRoutes);
 
 // Start server
 app.listen(PORT, () => {
