@@ -142,6 +142,3 @@ The application will be available at `http://localhost:3000`.
 | POST | `/api/interviews/end` | End interview and get summary | Yes |
 | GET | `/api/interviews/history` | Get user's past interviews | Yes |
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
