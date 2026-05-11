@@ -1,8 +1,3 @@
-<!-- Project banner placeholder -->
-<div align="center">
-  <img src="banner-placeholder.png" alt="Mock Interview Platform Banner" width="100%" />
-</div>
-
 # Mock Interview Platform
 
 An AI-powered mock interview platform where users can practice DSA, System Design, HR and Behavioural interviews. The AI generates questions based on topic and difficulty, evaluates answers and gives detailed feedback with scores.
@@ -142,6 +137,3 @@ The application will be available at `http://localhost:3000`.
 | POST | `/api/interviews/end` | End interview and get summary | Yes |
 | GET | `/api/interviews/history` | Get user's past interviews | Yes |
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
