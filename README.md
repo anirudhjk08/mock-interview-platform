@@ -26,7 +26,19 @@ An AI-powered mock interview platform where users can practice DSA, System Desig
 ## Screenshots
 
 <!-- Screenshots placeholder -->
-*Screenshots coming soon...*
+<div style="display: flex; gap: 10px;">
+  <img width="48%" alt="Login Page" src="https://github.com/user-attachments/assets/a8a7264a-40e5-41a1-a129-c7476519983f" />
+  <img width="48%" alt="Dashboard" src="https://github.com/user-attachments/assets/6b19d2a4-24a9-4492-b0a0-93b7231947d6" />
+</div>
+
+<br/>
+
+<div style="display: flex; gap: 10px;">
+  <img width="48%" alt="Interview Session" src="https://github.com/user-attachments/assets/06b7fd77-0515-48c4-ad70-a4d69bbf43ec" />
+  <img width="48%" alt="Summary Page" src="https://github.com/user-attachments/assets/e4d394ee-8bb4-4d81-b3aa-dcbd817c2ee9" />
+</div>
+
+
 
 ## Tech Stack
 
@@ -34,7 +46,7 @@ An AI-powered mock interview platform where users can practice DSA, System Desig
 - **Backend:** Node.js, Express.js
 - **Database:** PostgreSQL, Prisma ORM
 - **Authentication:** JWT
-- **AI:** AI API for question generation and feedback
+- **AI:** GROQ AI API for question generation and feedback
 
 ## Folder Structure
 
