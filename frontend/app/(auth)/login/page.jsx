@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import api from '@/lib/api';
+import Navbar from '@/components/Navbar';
+import Button from '@/components/Button';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -44,122 +46,140 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-950 px-4 py-12 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md space-y-8">
-        <div className="flex flex-col items-center">
-          {/* Decorative Logo / Icon */}
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-600 shadow-lg shadow-indigo-500/30">
-            <svg
-              className="h-6 w-6 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-              />
-            </svg>
+    <div className="flex min-h-screen flex-col bg-[#0f0f0f] text-white">
+      <Navbar />
+
+      {/* Split Auth Panel */}
+      <div className="flex flex-1 items-stretch justify-center">
+        {/* Left Side Panel - Hidden on Mobile */}
+        <div className="hidden lg:flex flex-1 flex-col justify-between bg-gradient-to-br from-indigo-950/60 via-zinc-950 to-zinc-950 p-12 border-r border-[#2a2a2a] relative overflow-hidden">
+          {/* Subtle Ambient Glow */}
+          <div className="absolute top-1/4 left-1/4 h-80 w-80 rounded-full bg-[#6366f1]/5 blur-[120px] pointer-events-none" />
+          
+          <div className="max-w-md my-auto space-y-8 relative z-10">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-wider text-[#6366f1] bg-indigo-500/10 px-3 py-1.5 rounded-full border border-indigo-500/20">
+                MockPrep Premium Platform
+              </span>
+              <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-white leading-tight">
+                Prep Smarter.<br />Interview Better.
+              </h1>
+              <p className="mt-4 text-base text-zinc-400">
+                Assess your skills, learn from instant evaluations, and ace your dream technical or behavioural interview.
+              </p>
+            </div>
+
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <span className="mt-1 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/20">
+                  ✓
+                </span>
+                <div>
+                  <h4 className="font-semibold text-white text-sm">Adaptive Mock Questions</h4>
+                  <p className="text-xs text-zinc-400 mt-0.5">Custom interviewer prompts across DSA, Systems, HR, and Behavioural.</p>
+                </div>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="mt-1 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/20">
+                  ✓
+                </span>
+                <div>
+                  <h4 className="font-semibold text-white text-sm">Instant Score Card Breakdown</h4>
+                  <p className="text-xs text-zinc-400 mt-0.5">Receive immediate marks out of 10 along with highlight lists.</p>
+                </div>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="mt-1 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/20">
+                  ✓
+                </span>
+                <div>
+                  <h4 className="font-semibold text-white text-sm">Ideal Answer Key</h4>
+                  <p className="text-xs text-zinc-400 mt-0.5">Compare your responses against benchmark standard architectures.</p>
+                </div>
+              </li>
+            </ul>
           </div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold tracking-tight text-white">
-            Welcome Back
-          </h2>
-          <p className="mt-2 text-center text-sm text-zinc-400">
-            Sign in to access your mock interview dashboard
-          </p>
+
+          <div className="text-xs text-zinc-500">
+            &copy; {new Date().getFullYear()} MockPrep. All rights reserved.
+          </div>
         </div>
 
-        <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-8 shadow-2xl backdrop-blur-xl">
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-zinc-300"
-              >
-                Email Address
-              </label>
-              <div className="mt-1">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full rounded-lg border border-zinc-700 bg-zinc-900/50 px-4 py-3 text-white placeholder-zinc-500 transition duration-150 ease-in-out focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                  placeholder="name@example.com"
-                />
-              </div>
+        {/* Right Side Panel - Login Form */}
+        <div className="flex-1 flex flex-col justify-center items-center px-4 py-12 sm:px-6 lg:px-8 bg-[#0f0f0f]">
+          <div className="w-full max-w-md space-y-8 animate-fadeIn">
+            <div className="text-center lg:text-left">
+              <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+                Sign In
+              </h2>
+              <p className="mt-2 text-sm text-zinc-400">
+                Access your dashboard and active mock interview sessions
+              </p>
             </div>
 
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-zinc-300"
-              >
-                Password
-              </label>
-              <div className="mt-1">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full rounded-lg border border-zinc-700 bg-zinc-900/50 px-4 py-3 text-white placeholder-zinc-500 transition duration-150 ease-in-out focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                  placeholder="••••••••"
-                />
-              </div>
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                disabled={loading}
-                className="relative flex w-full justify-center rounded-lg bg-indigo-600 px-4 py-3 text-sm font-medium text-white shadow-lg shadow-indigo-500/20 transition duration-150 ease-in-out hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-zinc-950 disabled:opacity-50"
-              >
-                {loading ? (
-                  <svg
-                    className="h-5 w-5 animate-spin text-white"
-                    fill="none"
-                    viewBox="0 0 24 24"
+            <div className="rounded-2xl border border-[#2a2a2a] bg-[#1a1a1a] p-8 shadow-2xl">
+              <form className="space-y-6" onSubmit={handleSubmit}>
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-semibold text-zinc-300"
                   >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
+                    Email Address
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="block w-full rounded-xl border border-[#2a2a2a] bg-[#0f0f0f] px-4 py-3 text-white placeholder-zinc-500 transition duration-150 ease-in-out focus:border-[#6366f1] focus:outline-none focus:ring-1 focus:ring-[#6366f1]"
+                      placeholder="name@example.com"
                     />
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    />
-                  </svg>
-                ) : (
-                  'Sign In'
-                )}
-              </button>
-            </div>
-          </form>
+                  </div>
+                </div>
 
-          <div className="mt-6 text-center">
-            <p className="text-sm text-zinc-400">
-              Don't have an account?{' '}
-              <Link
-                href="/register"
-                className="font-medium text-indigo-400 hover:text-indigo-300"
-              >
-                Register here
-              </Link>
-            </p>
+                <div>
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-semibold text-zinc-300"
+                  >
+                    Password
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="password"
+                      name="password"
+                      type="password"
+                      autoComplete="current-password"
+                      required
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="block w-full rounded-xl border border-[#2a2a2a] bg-[#0f0f0f] px-4 py-3 text-white placeholder-zinc-500 transition duration-150 ease-in-out focus:border-[#6366f1] focus:outline-none focus:ring-1 focus:ring-[#6366f1]"
+                      placeholder="••••••••"
+                    />
+                  </div>
+                </div>
+
+                <Button type="submit" loading={loading} className="w-full mt-4">
+                  Sign In
+                </Button>
+              </form>
+
+              <div className="mt-6 text-center">
+                <p className="text-sm text-zinc-400">
+                  Don't have an account?{' '}
+                  <Link
+                    href="/register"
+                    className="font-semibold text-[#6366f1] hover:text-[#5053e1] transition"
+                  >
+                    Register here
+                  </Link>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

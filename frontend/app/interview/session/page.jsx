@@ -5,6 +5,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import api from '@/lib/api';
+import Navbar from '@/components/Navbar';
+import Button from '@/components/Button';
 
 function SessionContent() {
   const router = useRouter();
@@ -139,60 +141,49 @@ function SessionContent() {
     }
   };
 
+  const getTopicBadgeColor = (topic) => {
+    switch (topic) {
+      case 'DSA':
+        return 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20';
+      case 'System Design':
+        return 'bg-sky-500/10 text-sky-400 border-sky-500/20';
+      case 'HR':
+        return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
+      case 'Behavioural':
+        return 'bg-pink-500/10 text-pink-400 border-pink-500/20';
+      default:
+        return 'bg-zinc-500/10 text-zinc-400 border-zinc-500/20';
+    }
+  };
+
   const isButtonDisabled = generating || evaluating || completing;
 
   return (
-    <div className="flex min-h-screen flex-col bg-zinc-950 text-white">
-      {/* Sticky Header */}
-      <header className="border-b border-zinc-800 bg-zinc-900/30 backdrop-blur-md sticky top-0 z-50">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <Link href="/dashboard" className="flex items-center gap-2 font-bold text-xl text-white tracking-wider hover:text-indigo-400 transition">
-            <svg
-              className="h-6 w-6 text-indigo-500"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-              />
-            </svg>
-            <span>Mock Interview Platform</span>
-          </Link>
-          <div>
-            <button
-              onClick={handleEndInterview}
-              disabled={isButtonDisabled}
-              className="rounded-lg bg-zinc-800 hover:bg-zinc-700 disabled:opacity-50 text-zinc-200 px-4 py-2 text-sm font-semibold transition"
-            >
-              End Interview
-            </button>
-          </div>
-        </div>
-      </header>
+    <div className="flex min-h-screen flex-col bg-[#0f0f0f] text-white">
+      <Navbar />
 
       {/* Main Content Area */}
-      <main className="flex-1 flex flex-col justify-center px-4 py-12 sm:px-6 lg:px-8 max-w-3xl mx-auto w-full">
+      <main className="flex-1 flex flex-col justify-center px-4 py-12 sm:px-6 lg:px-8 max-w-3xl mx-auto w-full animate-fadeIn">
         {generating ? (
-          <div className="text-center py-12 space-y-4">
-            <div className="h-10 w-10 animate-spin rounded-full border-4 border-indigo-600 border-t-transparent mx-auto" />
-            <p className="text-zinc-400 animate-pulse">Generating question...</p>
+          <div className="text-center py-20 space-y-4">
+            <svg className="h-10 w-10 animate-spin text-[#6366f1] mx-auto mb-4" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+            </svg>
+            <p className="text-zinc-400 animate-pulse">Generating interview question...</p>
           </div>
         ) : currentQuestion ? (
           <div className="space-y-8 w-full">
             {/* Header: Question Meta */}
-            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-800 pb-4">
+            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#2a2a2a] pb-4">
               <div>
-                <span className="text-indigo-400 font-bold tracking-wider uppercase text-sm">
+                <span className="text-[#6366f1] font-bold tracking-wider uppercase text-xs bg-indigo-500/10 px-2.5 py-1 rounded-md border border-indigo-500/20">
                   Question {questionNumber}
                 </span>
-                <h2 className="text-2xl font-extrabold text-white mt-1">Active Session</h2>
+                <h2 className="text-2xl font-extrabold text-white mt-3">Active Session</h2>
               </div>
               <div className="flex items-center gap-3">
-                <span className="rounded-full border px-3 py-1 text-xs font-semibold capitalize bg-zinc-900 text-zinc-200 border-zinc-800">
+                <span className={`rounded-full border px-3 py-1 text-xs font-semibold capitalize ${getTopicBadgeColor(session?.topic)}`}>
                   {session?.topic}
                 </span>
                 <span className={`rounded-full border px-3 py-1 text-xs font-semibold capitalize ${getDifficultyColor(session?.difficulty)}`}>
@@ -201,15 +192,16 @@ function SessionContent() {
               </div>
             </div>
 
-            {/* Question Card */}
-            <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 shadow-xl backdrop-blur-xl">
-              <p className="text-lg font-medium text-white leading-relaxed">
+            {/* Glowing Question Card */}
+            <div className="rounded-2xl border border-[#2a2a2a] bg-[#1a1a1a] p-6 shadow-[0_0_30px_rgba(99,102,241,0.06)] md:shadow-[0_0_40px_rgba(99,102,241,0.1)] relative overflow-hidden">
+              <div className="absolute top-0 left-0 h-1.5 w-full bg-gradient-to-r from-indigo-500 to-violet-500" />
+              <p className="text-lg font-medium text-white leading-relaxed pt-2">
                 {currentQuestion.questionText}
               </p>
             </div>
 
             {/* Answer Input form */}
-            <form onSubmit={handleSubmitAnswer} className="space-y-4">
+            <form onSubmit={handleSubmitAnswer} className="space-y-5">
               <div>
                 <label htmlFor="answer" className="block text-sm font-semibold tracking-wider uppercase text-zinc-400 mb-2">
                   Your Answer
@@ -221,75 +213,68 @@ function SessionContent() {
                   value={userAnswer}
                   disabled={evaluating || !!feedback}
                   onChange={(e) => setUserAnswer(e.target.value)}
-                  className="w-full rounded-xl border border-zinc-800 bg-zinc-900/30 p-5 text-white placeholder-zinc-500 transition duration-150 ease-in-out focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 disabled:opacity-75"
+                  className="w-full rounded-xl border border-[#2a2a2a] bg-[#1a1a1a]/40 p-5 text-white placeholder-zinc-500 transition duration-150 ease-in-out focus:border-[#6366f1] focus:outline-none focus:ring-1 focus:ring-[#6366f1] disabled:opacity-75"
                   placeholder="Type your detailed answer here..."
                 />
               </div>
 
               {!feedback && (
-                <button
+                <Button
                   type="submit"
-                  disabled={evaluating || !userAnswer.trim()}
-                  className="relative flex w-full justify-center rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 px-6 py-4 text-base font-semibold text-white shadow-lg shadow-indigo-500/20 hover:from-indigo-500 hover:to-violet-500 transition-all duration-200 hover:shadow-indigo-500/30 disabled:opacity-50"
+                  loading={evaluating}
+                  disabled={!userAnswer.trim()}
+                  className="w-full py-4 text-base"
                 >
-                  {evaluating ? (
-                    <div className="flex items-center gap-2">
-                      <svg className="h-5 w-5 animate-spin text-white" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                      </svg>
-                      <span>Evaluating answer...</span>
-                    </div>
-                  ) : (
-                    'Submit Answer'
-                  )}
-                </button>
+                  Submit Answer
+                </Button>
               )}
             </form>
 
             {/* Evaluated Feedback Card */}
             {feedback && (
-              <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 shadow-xl space-y-6 animate-fadeIn animate-duration-300">
-                <div className="flex items-center justify-between border-b border-zinc-800/80 pb-4">
+              <div className="rounded-2xl border border-[#2a2a2a] bg-[#1a1a1a] p-6 shadow-2xl space-y-6 animate-fadeIn">
+                <div className="flex items-center justify-between border-b border-[#2a2a2a] pb-4">
                   <h3 className="text-xl font-bold text-white">Evaluation & Feedback</h3>
                   <div className={`rounded-lg border px-3 py-1.5 text-sm font-extrabold ${getScoreColor(feedback.score)}`}>
                     Score: {feedback.score} / 10
                   </div>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-5">
                   <div>
-                    <h4 className="text-sm font-semibold tracking-wider uppercase text-emerald-400">What was good</h4>
+                    <h4 className="text-xs font-semibold tracking-wider uppercase text-emerald-400">What was good</h4>
                     <p className="text-zinc-300 text-sm mt-1 leading-relaxed">{feedback.good}</p>
                   </div>
 
                   <div>
-                    <h4 className="text-sm font-semibold tracking-wider uppercase text-rose-400">What was missing</h4>
+                    <h4 className="text-xs font-semibold tracking-wider uppercase text-rose-400">What was missing</h4>
                     <p className="text-zinc-300 text-sm mt-1 leading-relaxed">{feedback.missing}</p>
                   </div>
 
                   <div>
-                    <h4 className="text-sm font-semibold tracking-wider uppercase text-sky-400">Ideal Answer</h4>
+                    <h4 className="text-xs font-semibold tracking-wider uppercase text-sky-400">Ideal Answer</h4>
                     <p className="text-zinc-300 text-sm mt-1 leading-relaxed">{feedback.ideal_answer}</p>
                   </div>
                 </div>
 
                 {/* Post-Feedback Actions */}
-                <div className="flex flex-col sm:flex-row gap-4 pt-4 border-t border-zinc-800/80">
-                  <button
+                <div className="flex flex-col sm:flex-row gap-4 pt-5 border-t border-[#2a2a2a]">
+                  <Button
                     onClick={() => handleGenerateQuestion()}
                     disabled={isButtonDisabled}
-                    className="flex-1 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white py-3.5 text-base font-semibold shadow-lg shadow-indigo-500/20 transition duration-150"
+                    className="flex-1 py-3.5"
                   >
                     Next Question
-                  </button>
-                  <button
+                  </Button>
+                  <Button
+                    variant="secondary"
                     onClick={handleEndInterview}
+                    loading={completing}
                     disabled={isButtonDisabled}
-                    className="flex-1 rounded-xl bg-zinc-800 hover:bg-zinc-700 disabled:opacity-50 text-zinc-200 py-3.5 text-base font-semibold border border-zinc-700 transition duration-150"
+                    className="flex-1 py-3.5"
                   >
-                    {completing ? 'Ending Interview...' : 'End Interview'}
-                  </button>
+                    End Interview
+                  </Button>
                 </div>
               </div>
             )}
@@ -307,8 +292,8 @@ function SessionContent() {
 export default function InterviewSessionPage() {
   return (
     <Suspense fallback={
-      <div className="flex min-h-screen items-center justify-center bg-zinc-950 text-white">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-indigo-600 border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-[#0f0f0f] text-white">
+        <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#6366f1] border-t-transparent" />
       </div>
     }>
       <SessionContent />
