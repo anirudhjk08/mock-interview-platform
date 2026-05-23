@@ -243,7 +243,7 @@ export default function DashboardPage() {
                       <div className="flex items-baseline justify-between">
                         <span className="text-xs font-medium text-zinc-400">Average Score</span>
                         <span className="text-2xl font-extrabold text-emerald-400">
-                          {session.totalScore}%
+                          {session.totalScore}/10
                         </span>
                       </div>
                     ) : (
